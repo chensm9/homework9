@@ -1,7 +1,13 @@
-body {
-  background-color: lightskyblue;
+
+html, body{  
+  height: 100%;  
 }
 
+body {
+  background: url(../image/index_back.jpg);
+  background-repeat: no-repeat; 
+  background-size:100% 100%;
+}
 
 h1 {
   text-align: center;
@@ -9,11 +15,11 @@ h1 {
 
 div#regist {
   position: absolute;
-  background-color: pink;
+  background-color: 	green; 
   width: 30%;
-  height: 330px;
+  height: 50%;
   margin-left: 35%;
-  border: 2px solid black;
+  opacity: 0.5;
 }
 
 h2 {

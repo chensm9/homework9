@@ -45,8 +45,6 @@ require('http').createServer(function (req, res) {
         var rs = fs.createReadStream(file);
         rs.pipe(res);
       }
-    } else if (req.url == "/favicon.ico") {
-      res.end();
     } else {
       var file = path.normalize('.'+req.url);
       fs.exists(file, function (exists) {

@@ -11,10 +11,10 @@ window.onload = function () {
         window.location.href = "/";
       }
       var user = JSON.parse(data);
-      $("#username").text($("#username").text()+user.username);
-      $("#id").text($("#id").text()+user.id);
-      $("#phone").text($("#phone").text()+user.phone);
-      $("#mail").text($("#mail").text()+user.mail);
+      $("#username").text(user.username);
+      $("#id").text(user.id);
+      $("#phone").text(user.phone);
+      $("#mail").text(user.mail);
     }
   });
 }
