@@ -1,0 +1,45 @@
+body {
+  background-color: lightskyblue;
+}
+
+
+h1 {
+  text-align: center;
+}
+
+div#regist {
+  position: absolute;
+  background-color: pink;
+  width: 30%;
+  height: 330px;
+  margin-left: 35%;
+  border: 2px solid black;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+}
+
+span {
+  margin-top: 4%;
+  width: 30%;
+  font-size: 15pt;
+  display: inline-block;
+  color: white;
+  text-align: center;
+}
+
+input {
+  width: 65%;
+  font-size: 12pt;
+  text-align: center;
+}
+
+button {
+  margin-top: 5%;
+  margin-left: 15%;
+  margin-right: 10%;
+  width: 20%;
+  font-size: 12pt;
+}
