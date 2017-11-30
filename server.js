@@ -1,10 +1,38 @@
 var path = require('path'),
     fs = require('fs'),
-    querystring = require("querystring"); 
+    querystring = require("querystring");
 
+var MIME = {
+  '.html': 'text/html',
+  '.css': 'text/css',
+  '.js': 'application/javascript',
+  '.jpg': 'application/x-jpg'
+}
+
+var logger = {
+  info: console.log,
+  request: function (req, res, error) {
+    var date = new Date().toUTCString();
+    if (error) {
+      logger.info(
+        '[%s] "%s %s" Error (%s): "%s"',
+        date, req.method, req.url,
+        error.status.toString(), error.message
+      );
+    }
+    else {
+      logger.info(
+        '[%s] "%s %s" "%s"',
+        date, req.method, req.url,
+        req.headers['user-agent']
+      );
+    }
+  }
+};
 var user_array = new Array();
 
-require('http').createServer(function (req, res) {
+var server = require('http').createServer(function (req, res) {
+  logger.request(req, res)
   if (req.method == "POST") {
     if (req.url == "/info") {
       var data = '';
@@ -32,53 +60,55 @@ require('http').createServer(function (req, res) {
   }
   else {
     if (req.url[1] == '?') {
-      var user_search = querystring.parse(req.url.substr(2));
+      var user_search = querystring.parse(req.url.substr(2)), file;
       if (!SearchUser(user_search)) {
-        var file = path.normalize('./html/index.html');
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        var rs = fs.createReadStream(file);
-        rs.pipe(res);
+        file = path.normalize('./html/index.html');
+      } else {
+        file = path.normalize('./html/details.html');
       }
-      else {
-        var file = path.normalize('./html/details.html');
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        var rs = fs.createReadStream(file);
-        rs.pipe(res);
-      }
+      res.writeHead(200, {'Content-Type': MIME[path.extname(file)]});
+      var rs = fs.createReadStream(file);
+      rs.pipe(res);
     } else {
       var file = path.normalize('.'+req.url);
       fs.exists(file, function (exists) {
         if (exists && file != "./") {
-          res.writeHead(200);
+          res.writeHead(200, {'Content-Type': MIME[path.extname(file)]});
           var rs = fs.createReadStream(file);
           rs.pipe(res);
         }
         else {
-          res.writeHead(200, {'Content-Type': 'text/html'});
-          var rs = fs.createReadStream('./html/index.html');
+          file = './html/index.html'
+          res.writeHead(200, {'Content-Type': MIME[path.extname(file)]});
+          var rs = fs.createReadStream(file);
           rs.pipe(res);
         }
       })
     }
   }
-}).listen(8000, 'localhost');
+});
+
+server.listen(8000, 'localhost', function () {
+  logger.info('Starting up server, listening the port 8000');
+  logger.info('Hit CTRL-C to stop the server');
+});
 
 function ifUnique (user, report) {
   for(var i = 0; i < user_array.length; i++) {
     if (user_array[i].username == user.username) {
-      report.message = "注册失败，名字重复";
+      report.message = "注册失败，该用户名已被注册";
       return false;
     }
     else if (user_array[i].id == user.id) {
-      report.message = "注册失败，学号重复";
+      report.message = "注册失败，该学号已被注册";
       return false;
     }
     else if (user_array[i].phone == user.phone) {
-      report.message = "注册失败，电话重复";
+      report.message = "注册失败，该电话已被注册";
       return false;
     }
     else if (user_array[i].mail == user.mail) {
-      report.message = "注册失败，邮箱重复";
+      report.message = "注册失败，该邮箱已被注册";
       return false;
     }
   }
@@ -105,3 +135,8 @@ function SearchUserName(username) {
   }
   return "no such user";
 }
+
+process.on('SIGINT', function () {
+  logger.info('\nThe server stopped.');
+  process.exit();
+});

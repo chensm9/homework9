@@ -16,10 +16,25 @@ h1 {
 div#regist {
   position: absolute;
   background-color: 	green; 
+  border-radius: 10%;
   width: 30%;
-  height: 50%;
+  height: 55%;
   margin-left: 35%;
   opacity: 0.5;
+}
+
+div#tip {
+  background-color: none;
+  height: 10%;
+  font-size: 15pt;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+  transition: 0.4s;
+}
+
+.clear {
+  opacity: 0;
 }
 
 h2 {
@@ -43,6 +58,8 @@ input {
 }
 
 button {
+  background-color: blue;
+  color: white;
   margin-top: 5%;
   margin-left: 15%;
   margin-right: 10%;
