@@ -14,12 +14,12 @@ h1 {
 }
 
 div#regist {
-  position: absolute;
   background-color: 	green; 
   border-radius: 10%;
   width: 30%;
   height: 55%;
-  margin-left: 35%;
+  margin: auto;
+  padding: 2%;
   opacity: 0.5;
 }
 
@@ -52,17 +52,18 @@ span {
 }
 
 input {
-  width: 65%;
+  width: 63%;
   font-size: 12pt;
+  margin-left: 2%;
   text-align: center;
 }
 
 button {
   background-color: blue;
   color: white;
-  margin-top: 5%;
-  margin-left: 15%;
+  margin-top: 8%;
+  margin-left: 16%;
   margin-right: 10%;
   width: 20%;
-  font-size: 12pt;
+  font-size: 13pt;
 }
