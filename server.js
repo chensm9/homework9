@@ -70,9 +70,10 @@ var server = require('http').createServer(function (req, res) {
       var rs = fs.createReadStream(file);
       rs.pipe(res);
     } else {
-      var file = path.normalize('.'+req.url);
+      var file = '.' + req.url;
       fs.exists(file, function (exists) {
         if (exists && file != "./") {
+          console.log(path.extname(file));
           res.writeHead(200, {'Content-Type': MIME[path.extname(file)]});
           var rs = fs.createReadStream(file);
           rs.pipe(res);
@@ -89,7 +90,7 @@ var server = require('http').createServer(function (req, res) {
 });
 
 server.listen(8000, 'localhost', function () {
-  logger.info('Starting up server, listening the port 8000');
+  logger.info('Starting up server, listen port 8000');
   logger.info('Hit CTRL-C to stop the server');
 });
 
