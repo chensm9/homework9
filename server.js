@@ -62,9 +62,9 @@ var server = require('http').createServer(function (req, res) {
     if (req.url[1] == '?') {
       var user_search = querystring.parse(req.url.substr(2)), file;
       if (!SearchUser(user_search)) {
-        file = path.normalize('./html/index.html');
+        file = './html/index.html';
       } else {
-        file = path.normalize('./html/details.html');
+        file = './html/details.html';
       }
       res.writeHead(200, {'Content-Type': MIME[path.extname(file)]});
       var rs = fs.createReadStream(file);
