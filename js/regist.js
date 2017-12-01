@@ -97,7 +97,7 @@ function validPhone(phone) {
 }
 
 function validMail(mail) {
-  if (!/^[a-zA-Z_\-]+@(([a-zA-Z_\-])+\.)+[a-zA-Z]{2, 4}$/.test(mail)) {
+  if (!/^[a-zA-Z_\-]+@(([a-zA-Z_\-])+\.)+[a-zA-Z]{2,4}$/.test(mail)) {
     TIP("注册失败， 邮箱格式错误");
     return false;
   }
